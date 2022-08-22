@@ -75,16 +75,15 @@ def balance_teams(teams, cleaned_players):
     - number of experienced players on that team
     - the average height of the team
     """
-    # Initialize balanced_teams dictionary with each teams name.
+    # Initialize balanced_teams dictionary with each team's name.
     # For each team, initialize object keys to hold analysis data.
     for team in teams:
         _balanced_teams[team] = {
-            "average_player_height" : 0,
-            "number_of_experienced_players" : 0,
-            "number_of_inexperienced_players" : 0,
-            "players" : []
+            "average_player_height": 0,
+            "number_of_experienced_players": 0,
+            "number_of_inexperienced_players": 0,
+            "players": []
         }
-
 
     # Create a list of experienced and inexperienced players.
     players_trained = [
@@ -116,11 +115,16 @@ def balance_teams(teams, cleaned_players):
 
     # Save number of experienced/inexperienced players and average height of the team.
     for team in teams:
-        players_trained = [player for player in _balanced_teams[team]["players"] if player["experience"]]
-        players_untrained = [player for player in _balanced_teams[team]["players"] if not player["experience"]]
-        _balanced_teams[team]["average_player_height"] = calculate_avg_height(_balanced_teams[team]["players"])
-        _balanced_teams[team]["number_of_experienced_players"] = len(players_trained)
-        _balanced_teams[team]["number_of_inexperienced_players"] = len(players_untrained)
+        players_trained = [
+            player for player in _balanced_teams[team]["players"] if player["experience"]]
+        players_untrained = [
+            player for player in _balanced_teams[team]["players"] if not player["experience"]]
+        _balanced_teams[team]["average_player_height"] = calculate_avg_height(
+            _balanced_teams[team]["players"])
+        _balanced_teams[team]["number_of_experienced_players"] = len(
+            players_trained)
+        _balanced_teams[team]["number_of_inexperienced_players"] = len(
+            players_untrained)
 
     return _balanced_teams
 
@@ -244,8 +248,8 @@ def main(players, teams):
     """Start the application.
 
     Args:
-        PLAYERS (list): List of player objects.
-        TEAMS (list): List of team data.
+        players (list): List of player objects.
+        teams (list): List of team data.
     """
     _balanced_teams = balance_teams(teams, clean_players(players))
     menu_main()
@@ -355,13 +359,14 @@ class Tests(unittest.TestCase):
 
 
 class ToDoTests(unittest.TestCase):
-    # Grouping these separately so they can be run separately and appear in the
+    # Grouping these separately, so they can be run separately and appear in the
     # command line output after running the other tests.
     # pylint: disable=missing-function-docstring
 
     @unittest.skip("TODO: When there's more time, test this")
     def test_show_menu_options(self):
-        self.assertEqual(show_menu_options(_main_menu_options), 'a')
+        self.assertEqual(show_menu_options(
+            ("Display Team Stats", "Quit")), 'a')
 
     @unittest.skip("TODO: When there's more time, test this")
     def test_show_team_stats(self):
